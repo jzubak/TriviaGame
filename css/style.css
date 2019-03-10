@@ -2,7 +2,7 @@ body{
     background-size:auto;
     margin: 0;
     /* background-image: url('../images/asanoha-400px/asanoha-400px/asanoha-400px.png'); */
-    /* background-image: url('../images/jason-leung-479251-unsplash.jpg'); */
+    background-image: url('../images/jason-leung-479251-unsplash.jpg');
     /* background-image: url('../images/christopher-burns-253179-unsplash.jpg') */
 }
 
@@ -11,12 +11,14 @@ body{
     max-width: 960px;
     max-height: 960px;
     background-color: antiquewhite;
+    margin-left: 150px;
 }
 
 .answers{
     max-width: 960px;
     max-height: 150px;
     background-color: bisque;
+    margin-left: 150px;
 }
 
 h1{
@@ -39,4 +41,31 @@ h2{
     text-align: center;
     font-weight: 250;
     
+}
+.startbutton{
+    border: none;
+
+}
+.answerbutton{
+    border: none;
+    background-color: rgb(184, 231, 231);
+}
+.hidden{
+    display:none;
+}s
+
+.unhidden{
+    display:block;
+}
+.results{
+    font-size: 16pt;
+    font-family: 'Quattrocento Sans', sans-serif;
+    text-align: center;
+    font-weight: 250;
+}
+.right{
+    background-color: rgb(44, 218, 44);
+}
+.wrong{
+    background-color: rgb(240, 10, 10);
 }
