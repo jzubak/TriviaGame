@@ -52,7 +52,7 @@ $(".questionBox").prepend(start);
 function showQuestion() {
     if (count === (questions.length-1)) {
         return finalscreen();
-        console.log(questions.length);
+        
     }
     console.log(count);
     console.log(questions.length);
@@ -99,7 +99,7 @@ function nextquestion() {
 };
 
 function finalscreen() {
-    // clearInterval(questionInterval);
+    clearTimeout(questionTimeout);
     $(correct).text("<div>You got " + correct + "questions correct!</div>");
     $(wrong).text("You got " + wrong + "questions wrong, time to go back to school!");
 }
