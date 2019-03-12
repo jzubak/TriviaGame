@@ -1,4 +1,4 @@
-var questionTimeout = setInterval(showQuestion, 5 * 1000);
+// var questionTimeout = setInterval(showQuestion, 5 * 1000);
 var questions = [
     {
         question: "Which politician has the nickname 'The Iron Lady?' ",
@@ -45,39 +45,51 @@ var start = $("<button>");
 $(start).text("Start");
 $(".questionBox").prepend(start);
 
+$(document).ready(function(){
+    $(".answerdiv").hide();
 
 function showQuestion() {
-
-    $(".questionBox").html("<div>" + questions[count].question + " </div>");
+    // for (var q = 0; q < questions.length; q++)
+        $(".questionBox").html("<div>" + questions[count].question + " </div>");
     for (var i = 0; i < questions[count].answers.length; i++) {
 
         $(`.answer${i + 1}`).text(questions[count].answers[i]);
-    }
-        count++;
-        if (i > questions[count].answers.length) {
-            clearInterval();
-        }
+        // var questionTimeout = setInterval(showQuestion, 5 * 1000);
+        // answer();
     }
 
+    
+    count++;
+//     }
+// if (q > questions[count].length) {
+//     finalscreen();
+// }
 };
 
-$(questions[count].answers).on("click", function(answer) {
-    if (answer === questions[count].correctAnswer) {
-            correct++;
-            console.log(correct);
-        }
-        else wrong++;
-        console.log(wrong);
-    // };
+$(".answerbutton").on("click", function (answer) {
+    console.log($(this).html());
+    console.log(questions[count].correctAnswer);
+    if ($(this).html() === questions[count].correctAnswer) {
+        correct++;
+        console.log("you got " + correct + " correct");
+    }
+    else wrong++;
+    console.log("you got " + wrong + " wrong");
 });
 
+
+function finalscreen() {
+    $(correct).text("You got " + correct + "questions correct!");
+    $(wrong).text("You got " + wrong + "questions wrong, time to go back to school!");
+}
 $(start).on("click", function (startGame) {
 
-        showQuestion()
+    showQuestion()
+    // var questionTimeout = setInterval(showQuestion, 5 * 1000);
 
 
-    });
+});
 
-
+});
 ///store answer selected for later total 
 //
