@@ -1,4 +1,5 @@
-// var questionTimeout = setInterval(showQuestion, 5 * 1000);
+// var questionInterval = setInterval(showQuestion, 5 * 1000);
+var questionTimeout = setTimeout(nextquestion, 5 * 1000);
 var questions = [
     {
         question: "Which politician has the nickname 'The Iron Lady?' ",
@@ -34,7 +35,7 @@ var questions = [
         question: "In what year did Kathryn Bigelow become the first woman to win the Acdemy Award for 'Best Director'?",
         answers: ["2000", "2015", "2010", "1998"],
         correctAnswer: "2010",
-    }
+    },
 ]
 var count = 0;
 var correct = 0;
@@ -45,59 +46,74 @@ var start = $("<button>");
 $(start).text("Start");
 $(".questionBox").prepend(start);
 
-$(document).ready(function(){
-    $(".answerdiv").hide();
+// $(document).ready(function () {
+// hidden();
 
 function showQuestion() {
-    // for (var q = 0; q < questions[count].length; q++)
-        $(".questionBox").html("<div>" + questions[count].question + " </div>");
+    if (count === (questions.length-1)) {
+        return finalscreen();
+        console.log(questions.length);
+    }
+    console.log(count);
+    console.log(questions.length);
+    $(".questionBox").html("<div>" + questions[count].question + " </div>");
     for (var i = 0; i < questions[count].answers.length; i++) {
 
         $(`.answer${i + 1}`).text(questions[count].answers[i]);
-    }    
-    // count++;
-//     }
-// if (q > questions[count].length) {
-//     finalscreen();
-// }
+        
+    
+    }
+    console.log(questions[count]);
 };
 
 $(".answerbutton").on("click", function (answer) {
-    console.log($(this).html());
-    console.log(questions[count].correctAnswer);
     if ($(this).html() === questions[count].correctAnswer) {
         $(this).addClass("#right");
         correct++;
-        console.log("you got " + correct + " correct");
+        console.log(correct);
         nextquestion();
     }
     else if ($(this).html() != questions[count].correctAnswer) {
         $(this).addClass("#wrong");
         wrong++;
-    console.log("you got " + wrong + " wrong");
-    nextquestion();
+        nextquestion();
+        console.log(wrong);
     }
-    else count++;
-    nextquestion();
+    // else
+    //     // questionInterval;
+    // wrong++;
+    // count++;
+    console.log(correct);
+    console.log(wrong);
 });
 
-function nextquestion(){
+function nextquestion() {
     count++;
-}
+    clearTimeout(questionTimeout);
+    questionTimeout = setTimeout(function(){
+        nextquestion();
+        wrong++;
+    }, 5 * 1000);
+    // questionTimeout;
+    showQuestion();
+};
 
 function finalscreen() {
-    clearInterval(intervalId);
-    $(correct).html("<div>You got " + correct + "questions correct!</div>");
+    // clearInterval(questionInterval);
+    $(correct).text("<div>You got " + correct + "questions correct!</div>");
     $(wrong).text("You got " + wrong + "questions wrong, time to go back to school!");
 }
-$(start).on("click", function (startGame) {
-
+$(start).on("click", function () {
     showQuestion()
-    var questionTimeout = setInterval(showQuestion, 5 * 1000);
-
-
-});
+    // questionInterval = setInterval(showQuestion, 5 * 1000);
 
 });
-///store answer selected for later total 
-//
+    // $("#hidden").click(function(hidden){
+    //     $(".answersdiv").hide();
+    //   });
+
+    //   $("#unhidden").click(function(show){
+    //     $(".answersdiv").show();
+    //   });
+
+// });
