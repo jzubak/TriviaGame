@@ -2,7 +2,7 @@
 var questions = [
     {
         question: "Which politician has the nickname 'The Iron Lady?' ",
-        answers: ["Theresa May", "Margret Thatcher", "Hillary Clinton", "Angela Merkle"],
+        answers: ["Theresa May", "Margaret Thatcher", "Hillary Clinton", "Angela Merkle"],
         correctAnswer: "Margaret Thatcher",
     },
     {
@@ -39,7 +39,7 @@ var questions = [
 var count = 0;
 var correct = 0;
 var wrong = 0;
-var selectedAnswer;
+var intervalId;
 var start = $("<button>");
 // $(start).addclass("startbutton");
 $(start).text("Start");
@@ -49,17 +49,13 @@ $(document).ready(function(){
     $(".answerdiv").hide();
 
 function showQuestion() {
-    // for (var q = 0; q < questions.length; q++)
+    // for (var q = 0; q < questions[count].length; q++)
         $(".questionBox").html("<div>" + questions[count].question + " </div>");
     for (var i = 0; i < questions[count].answers.length; i++) {
 
         $(`.answer${i + 1}`).text(questions[count].answers[i]);
-        // var questionTimeout = setInterval(showQuestion, 5 * 1000);
-        // answer();
-    }
-
-    
-    count++;
+    }    
+    // count++;
 //     }
 // if (q > questions[count].length) {
 //     finalscreen();
@@ -70,22 +66,34 @@ $(".answerbutton").on("click", function (answer) {
     console.log($(this).html());
     console.log(questions[count].correctAnswer);
     if ($(this).html() === questions[count].correctAnswer) {
+        $(this).addClass("#right");
         correct++;
         console.log("you got " + correct + " correct");
+        nextquestion();
     }
-    else wrong++;
+    else if ($(this).html() != questions[count].correctAnswer) {
+        $(this).addClass("#wrong");
+        wrong++;
     console.log("you got " + wrong + " wrong");
+    nextquestion();
+    }
+    else count++;
+    nextquestion();
 });
 
+function nextquestion(){
+    count++;
+}
 
 function finalscreen() {
-    $(correct).text("You got " + correct + "questions correct!");
+    clearInterval(intervalId);
+    $(correct).html("<div>You got " + correct + "questions correct!</div>");
     $(wrong).text("You got " + wrong + "questions wrong, time to go back to school!");
 }
 $(start).on("click", function (startGame) {
 
     showQuestion()
-    // var questionTimeout = setInterval(showQuestion, 5 * 1000);
+    var questionTimeout = setInterval(showQuestion, 5 * 1000);
 
 
 });
